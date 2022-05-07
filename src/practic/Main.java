@@ -2,7 +2,8 @@ package practic;
 
 
 public class Main {
-    public static Integer count = 100;
+    public static Integer count = 0;
+    static Object locker = new Object();
 
     public static void main(String[] args) {
 
@@ -16,7 +17,5 @@ public class Main {
         b1.start();
         b2.start();
         bear.start();
-
-
     }
 }

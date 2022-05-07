@@ -9,21 +9,21 @@ public class Bear extends Thread {
 
     @Override
     public void run() {
-        try {
-            this.wait();
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        if (Main.count == 0) {
-            System.out.println("Пришел " + Thread.currentThread().getName() + " и все съел");
-            Main.count = 100;
-            this.notifyAll();
+        synchronized (Main.locker) {
             try {
-                this.wait();
-                this.notifyAll();
+                Main.locker.wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
+            }
+            if (Main.count > 10) {
+                System.out.println("Пришел " + Thread.currentThread().getName() + " и все съел");
+                Main.count = 1;
+                Main.locker.notifyAll();
+                try {
+                    Main.locker.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
