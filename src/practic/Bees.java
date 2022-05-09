@@ -11,14 +11,16 @@ public class Bees extends Thread {
 
     @Override
     public void run() {
-        while (true) {
-            synchronized (Main.locker) {
+
+
+            while (true) {
+                synchronized (Main.locker) {
                 try {
                     this.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                if (Main.count < 11) {
+                if (Main.count < 10) {
                     System.out.println(this.getName() + " принесла в горшок 1 порцию  и тепеь там " + ++Main.count + " грамм меда");
                 } else {
                     Main.locker.notify();
